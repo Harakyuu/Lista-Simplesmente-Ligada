@@ -1,0 +1,121 @@
+// LaboratÃ³rio de Estrutura de Dados 1
+// FlÃ¡vio Kenzo Nishiyama - 32031890
+// Guilherme da Costa Sampaio Pinto - 32011059
+// Nicolas Kanamaru de Oliveira - 32050631
+
+#include <cstdlib>
+#include <iostream>
+#include "ListaLigada.h"
+#include "Node.h"
+
+using namespace std;
+
+void ni();
+void pausa();
+
+int main() {
+
+	ListaLigada lista;
+
+	while (true) {
+
+		system("cls"); /*chamada Windows. Em outro ambiente comente esta linha*/
+		cout << "\n ******** TESTANDO O TAD LISTA SIMPLESMENTE LIGADA ********";
+		cout << "\n0 - sair";
+		cout << "\n1 - inserir um novo no' no inicio";
+		cout << "\n2 - inserir um novo no' no final";
+		cout << "\n3 - inserir um novo no' na posicao 'n'";
+		cout << "\n4 - inserir um novo no' imediatamente apos a posicao 'n'";
+		cout << "\n5 - inserir um novo no' imediatamente antes da posicao 'n'";
+		cout << "\n6 - excluir um no' da posicao 'n'";
+		cout << "\n7 - excluir um no' imediatamente apos a posicao 'n'";
+		cout << "\n8 - excluir um no' imediatamente antes da posicao 'n'";
+		cout << "\n9 - informar o total de elementos na lista";
+		cout << "\n10 - imprimir a lista";
+        cout << "\n***********************************************************";
+		cout << "\n\nInforme sua opcao: ";
+		int opc;
+		cin >> opc;
+
+		if (opc == 0) {
+			break;
+		} else if (opc == 1) {
+			int opc1;
+			cout << "Valor do elemento (int): ";
+			cin >> opc1;
+			lista.insereInicio(opc1);
+            cout << "\n";
+			system("pause"); /*chamada Windows. Em outro ambiente comente esta linha*/
+		} else if (opc == 2) {
+			int opc2;
+            cout << "\nValor do elemento (int): ";
+            cin >> opc2;
+            lista.insereFinal(opc2);
+            cout << "\n";
+            system("pause"); /*chamada Windows. Em outro ambiente comente esta linha*/
+		} else if(opc == 3) {
+			int opc3a;
+			int opc3b;
+			cout << "\nValor do elemento (int): ";
+			cin >> opc3a;
+			cout << "Posicao a ser inserido: ";
+			cin >> opc3b;
+			Node * c = new Node(opc3a);
+			cout << lista.insereEmN(c, opc3b);
+            cout << "\n";
+			pausa();
+		} else if (opc == 4) {
+			int opc4a;
+			int opc4b;
+			cout << "\nValor do elemento (int): ";
+			cin >> opc4a;
+			cout << "Posicao: ";
+			cin >> opc4b;
+			Node * c = new Node(opc4a);
+			cout << lista.insereAposN(c, opc4b);
+            cout << "\n";
+			pausa();
+		} else if (opc == 5) {
+			int opc5a;
+			int opc5b;
+			cout << "\nValor do elemento (int): ";
+			cin >> opc5a;
+			cout << "Posicao: ";
+			cin >> opc5b;
+			Node * c = new Node(opc5a);
+			cout << lista.insereAntesN(c, opc5b);
+            cout << "\n";
+			pausa();
+		} else if (opc == 6) {
+			int opc6;
+			cout << "Posicao da celula a ser excluida: ";
+			cin >> opc6;
+			cout << lista.excluiEmN(opc6);
+            cout << "\n";
+            pausa();
+		} else if (opc == 7) {
+			int opc7;
+			cout << "Posicao: ";
+			cin >> opc7;
+			cout << lista.excluiAposN(opc7);
+            cout << "\n";
+            pausa();
+		} else if (opc == 8) {
+			int opc8;
+			cout << "Posicao: ";
+			cin >> opc8;
+			cout << lista.excluiAntesN(opc8);
+            cout << "\n";
+            pausa();
+		} else if (opc == 9) {
+			cout << "\n\nTamanho da lista = " << lista.tamanho() << " elemento(s)";
+            cout << "\n";
+			pausa();
+		} else if (opc == 10) {
+			cout << "\n\nImpressao dos elemento da lista -> ";
+			lista.imprime();
+			pausa();
+		}
+	}
+	return 0;
+}
