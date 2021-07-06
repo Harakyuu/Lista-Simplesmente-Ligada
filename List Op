@@ -1,0 +1,410 @@
+#include <cstdlib>
+#include <iostream>
+#include <sstream>
+#include "Node.h"
+#include "ListaLigada.h"
+
+using namespace std;
+
+
+ListaLigada::ListaLigada() {
+	head = NULL;
+  tail = NULL;
+	qtdNodes = 0;
+}
+
+
+bool ListaLigada::vazia() {
+	return head == NULL;
+}
+
+
+int ListaLigada::tamanho() {
+	return this->qtdNodes;
+}
+
+
+void ListaLigada::insereInicio(int i) {
+  if(vazia() == true)
+  {
+    Node * c = new Node(i);
+    c->setProx(head);
+    head = c;
+    tail = c;
+    qtdNodes++;
+  }
+  else
+  {
+    Node * c = new Node(i);
+    c->setProx(head);
+    head = c;
+    qtdNodes++;
+  }
+}
+
+
+void ListaLigada::insereFinal(int i) {
+
+  if(vazia() == true){
+  	Node * c = new Node(i);
+  	c->setProx(head);
+  	tail = c;
+  	head = c;
+  	qtdNodes++;
+  }
+  else {
+  	Node * c = new Node(i);
+  	c -> setProx(NULL);
+  	tail->setProx(c);
+  	tail = c;
+  	qtdNodes++;
+  }
+}
+
+string ListaLigada::insereEmN(Node * c, int pos) {
+
+	stringstream ss;
+
+	while (true) {
+
+		if (pos < 1) {
+			ss << "A posicao deve ser maior ou igual a 1";
+			break;
+		}
+		if (pos > qtdNodes + 1) {
+			ss << "Nao existe esta posicao. A fila esta' com " << qtdNodes << " elemento(s)";
+			break;
+		}
+		if (pos == 1) {
+			insereInicio(c->getInfo()); // o metodo insereInicio ja' estava implementado;
+			// aqui foi feita uma adaptacao.
+			ss << "Inserido no inicio";
+			break;
+		}
+    if (pos == qtdNodes + 1) {
+      insereFinal(c->getInfo());
+      ss << "Inserido no final";
+      break;
+    }
+
+		Node * cursor = this->head;
+		for (int i = 1; i < pos - 1; i++) {
+			cursor = cursor->getProx();
+		}
+
+		c->setProx(cursor->getProx());
+		cursor->setProx(c);
+
+		qtdNodes++;
+
+		ss << "Inserido na posicao " << pos;
+
+		break;
+	}
+	return ss.str();
+}
+
+
+string ListaLigada::insereAposN(Node * c, int pos) {
+
+  stringstream ss;
+
+  while (true) {
+
+    if(pos<0) {
+      ss << "A posicao deve ser maior ou igual a 0";
+      break;
+    }
+    if (pos > qtdNodes) {
+      ss << "Nao tem como inserir apos esta posicao " << pos << "\nA fila esta' com "  << qtdNodes << " elemento(s)";
+      break;
+    }
+    if (pos == 0) {
+			insereInicio(c->getInfo());
+			ss << "Inserido no inicio";
+			break;
+    }
+    if (pos == qtdNodes) {
+      insereFinal(c->getInfo());
+      ss << "Inserido no final";
+      break;
+    }
+
+    Node * cursor = this->head;
+		for (int i = 1; i < pos; i++) {
+			cursor = cursor->getProx();
+  }
+
+  c->setProx(cursor->getProx());
+	cursor->setProx(c);
+
+  qtdNodes++;
+
+  ss << "Inserido apos a posicao " << pos;
+
+  break;
+
+  }
+  return ss.str();
+}
+
+
+string ListaLigada::insereAntesN(Node * c, int pos) {
+
+  stringstream ss;
+
+  while (true) {
+
+    if(pos <= 1) {
+      ss << "A posicao deve ser maior do que 1";
+      break;
+    }
+    if (pos > qtdNodes + 2) {
+      ss << "Nao tem como inserir antes desta posicao " << pos << "\nA fila esta com "  << qtdNodes << " elemento(s)";
+      break;
+    }
+    if (pos == 2) {
+			insereInicio(c->getInfo());
+			ss << "Inserido no inicio";
+			break;
+    }
+    if (pos == qtdNodes + 2) {
+      insereFinal(c->getInfo());
+      ss << "Inserido no final";
+      break;
+    }
+
+    Node * cursor = this->head;
+		for (int i = 1; i < pos - 2; i++) {
+			cursor = cursor->getProx();
+  }
+
+  c->setProx(cursor->getProx());
+	cursor->setProx(c);
+
+  qtdNodes++;
+
+  ss << "Inserido antes da posicao " << pos;
+
+  break;
+
+  }
+  return ss.str();
+}
+
+string ListaLigada::excluiEmN(int pos){
+
+ 	stringstream ss;
+
+	while (true) {
+
+    if (pos < 1)
+    {
+        ss << "A posicao deve ser maior ou igual a 1";
+        break;
+    }
+
+    if (pos > qtdNodes + 1)
+    {
+        ss << "Nao existe esta posicao. A fila esta' com " << qtdNodes << " elemento(s)";
+        break;
+    }
+
+    if (pos == 1)
+    {
+        Node * cursorH = this->head;
+        head = cursorH->getProx();
+        delete cursorH;
+        qtdNodes--;
+        ss << "O primeiro no foi excluido";
+        break;
+    }
+
+    if (pos == qtdNodes)
+    {
+        Node * cursorTail = this->head;
+        while (cursorTail->getProx() != tail)
+        {
+            cursorTail = cursorTail->getProx();
+        }
+
+        tail = cursorTail;
+        delete tail->getProx();
+        tail->setProx(NULL);
+        qtdNodes--;
+
+        ss << "O ultimo no foi excluido";
+        break;
+    }
+
+    Node * cursor1 = this->head;
+    for (int i = 1; i < pos - 1; i++)
+    {
+        cursor1 = cursor1->getProx();
+    }
+
+    Node * cursor2 = this->head;
+    for (int j = 1; j < pos; j++)
+    {
+        cursor2 = cursor2->getProx();
+    }
+    cursor1->setProx(cursor2->getProx());
+    delete cursor2;
+
+    qtdNodes--;
+
+    ss << "O no da pos " << pos << " foi excluido.";
+    break;
+    }
+
+    return ss.str();
+}
+
+
+string ListaLigada::excluiAposN(int pos)
+{
+  stringstream ss;
+
+	while (true) {
+
+		if (pos < 0)
+        {
+			ss << "A posicao deve ser maior ou igual a 0";
+			break;
+		}
+
+		if (pos > qtdNodes)
+        {
+			ss << "Nao tem como excluir apos esta posicao " << pos << "\nA fila esta' com "  << qtdNodes << " elemento(s)";
+			break;
+		}
+
+		if (pos == 0)
+        {
+			Node * cursorH = this->head;
+			head = cursorH->getProx();
+			delete cursorH;
+			qtdNodes--;
+			ss << "O primeiro no foi excluido";
+			break;
+		}
+
+		if (pos == qtdNodes - 1)
+        {
+			Node * cursorTail = this->head;
+			while (cursorTail->getProx() != tail)
+            {
+				cursorTail = cursorTail->getProx();
+			}
+
+			tail = cursorTail;
+			delete tail->getProx();
+            tail->setProx(NULL);
+			qtdNodes--;
+
+			ss << "O ultimo no foi excluido";
+			break;
+		}
+
+    Node * cursor1 = this->head;
+    for (int i = 1; i < pos; i++)
+    {
+        cursor1 = cursor1->getProx();
+    }
+
+    Node * cursor2 = this->head;
+    for (int j = 1; j < pos + 1; j++)
+    {
+        cursor2 = cursor2->getProx();
+    }
+    cursor1->setProx(cursor2->getProx());
+    delete cursor2;
+
+    qtdNodes--;
+
+    ss << "O no seguinte da pos " << pos << " foi excluido.";
+    break;
+    }
+
+    return ss.str();
+}
+
+
+string ListaLigada::excluiAntesN(int pos){
+
+    stringstream ss;
+
+	while (true) {
+
+		if (pos <= 1)
+        {
+			ss << "A posicao deve ser maior do que 1";
+			break;
+		}
+
+		if (pos > qtdNodes + 2)
+        {
+			ss << "Nao tem como excluir antes desta posicao " << pos << "\nA fila esta' com "  << qtdNodes << " elemento(s)";
+			break;
+		}
+
+		if (pos == 2)
+        {
+			Node * cursorH = this->head;
+			head = cursorH->getProx();
+			delete cursorH;
+			qtdNodes--;
+			ss << "O primeiro no foi excluido";
+			break;
+		}
+
+		if (pos == qtdNodes + 1)
+        {
+			Node * cursorTail = this->head;
+			while (cursorTail->getProx() != tail)
+            {
+				cursorTail = cursorTail->getProx();
+			}
+
+			tail = cursorTail;
+			delete tail->getProx();
+            tail->setProx(NULL);
+			qtdNodes--;
+
+			ss << "O ultimo no foi excluido";
+			break;
+		}
+
+        Node * cursor1 = this->head;
+		for (int i = 1; i < pos-2; i++)
+        {
+		  cursor1 = cursor1->getProx();
+		}
+
+        Node * cursor2 = this->head;
+        for (int j = 1; j < pos - 1; j++)
+        {
+		  cursor2 = cursor2->getProx();
+		}
+        cursor1->setProx(cursor2->getProx());
+		delete cursor2;
+
+		qtdNodes--;
+
+		ss << "O no anterior da pos " << pos << " foi excluido.";
+		break;
+    }
+
+    return ss.str();
+}
+
+void ListaLigada::imprime()
+{
+	Node * cursor = head;
+	cout << "[ ";
+	while (cursor != NULL) {
+		cout << cursor->getInfo() << " ";
+		cursor = cursor->getProx();
+	}
+	cout << "]\n";
+}
