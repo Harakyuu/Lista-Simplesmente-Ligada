@@ -1,0 +1,19 @@
+#ifndef Node_H
+#define Node_H
+
+class Node {
+
+	//= privado
+	private:
+	int info;
+	Node * prox;
+
+	//= publico
+	public:
+	Node(int);
+	int  getInfo();
+	void setInfo(int);
+	Node * getProx();
+	void setProx(Node * );
+};
+#endif
