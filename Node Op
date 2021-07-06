@@ -1,0 +1,29 @@
+#include <cstdlib>
+#include <cstdlib>
+#include "Node.h"
+
+// Cria no'
+Node::Node(int i) {
+	info =  i;
+	prox = NULL;
+}
+
+// Mostra elemento do no'
+int Node::getInfo() {
+	return info;
+}
+
+// Coloca o valor do elemento em um no'
+void Node::setInfo(int i) {
+	info = i;
+}
+
+// Pega o proximo no'
+Node * Node::getProx() {
+	return prox;
+}
+
+// Coloca o ponteiro de proximo no no' do parametro
+void Node::setProx(Node * p) {
+	prox = p;
+}
