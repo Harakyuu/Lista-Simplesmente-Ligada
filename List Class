@@ -1,0 +1,33 @@
+#include <iostream>
+#include <string.h>
+#include "Node.h"
+
+#ifndef LISTALIGADA_H
+#define LISTALIGADA_H
+
+using namespace std;
+
+class ListaLigada {
+
+	//= privado
+	private:
+	Node * head;
+    Node * tail;
+	  int qtdNodes;
+
+	//= publico
+	public:
+	ListaLigada();
+	  bool vazia();
+	  int tamanho();
+  	void insereInicio(int i);
+    void insereFinal(int i);
+    string insereEmN(Node * c, int pos);
+    string insereAposN(Node * c, int pos);
+    string insereAntesN(Node * c, int pos);
+    string excluiEmN(int pos);
+    string excluiAposN(int pos);
+    string excluiAntesN(int pos);
+	  void imprime();
+};
+#endif
