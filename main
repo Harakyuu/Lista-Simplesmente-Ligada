@@ -119,3 +119,18 @@ int main() {
 	}
 	return 0;
 }
+
+
+void ni() {
+	system("cls");/*chamada Windows. Em outro ambiente comente esta linha*/
+	cout << "\n\n\n\n\n          ***********************";
+	cout << "\n\n          AINDA NAO IMPLEMENTADO.\n\n";
+	cout << "          ***********************\n\n\n\n\n\n\n\n\n";
+	system("pause");/*chamada Windows. Em outro ambiente comente esta linha*/
+}
+
+
+void pausa() {
+	cout << "\n\n\n\n";
+	system("pause");/*chamada Windows. Em outro ambiente comente esta linha*/
+}
